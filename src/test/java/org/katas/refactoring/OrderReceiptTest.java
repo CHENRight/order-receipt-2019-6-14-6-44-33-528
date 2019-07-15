@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class OrderReceiptTest {
     @Test
     public void shouldPrintCustomerInformationOnOrder() {
@@ -28,7 +27,7 @@ public class OrderReceiptTest {
         OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
 
         String output = receipt.printReceipt();
-
+        System.out.println(output);
         assertThat(output).contains(
                 "milk\t10.0\t2\t20.0\n",
                 "biscuits\t5.0\t5\t25.0\n",
