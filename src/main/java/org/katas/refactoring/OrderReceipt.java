@@ -7,6 +7,7 @@ package org.katas.refactoring;
  * total sales tax) and prints it.
  */
 public class OrderReceipt {
+
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -14,36 +15,20 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
+        StringBuilder outputReceipt = new StringBuilder();
 
-        output.append("======Printing Orders======\n");
+        outputReceipt.append(String.format("======Printing Orders======\n%s%s",order.getCustomerName(),order.getCustomerAddress()));
 
-//      output.append("Date - " + order.getDate();
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
-
-        double totSalesTx = 0d;
-        double tot = 0d;
+        double totalSalesTax = 0d;
+        double totalAmount = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
-
-            double salesTax = lineItem.totalAmount() * .10;
-            totSalesTx += salesTax;
-
-            // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += lineItem.totalAmount() + salesTax;
+            outputReceipt.append(String.format("%s\t%s\t%s\t%s\n",lineItem.getDescription(),lineItem.getPrice(),lineItem.getQuantity(),lineItem.totalAmount()));
+            double salesTax = lineItem.getSalesTax();
+            totalSalesTax += salesTax;
+            totalAmount += lineItem.totalAmount() + salesTax;
         }
 
-        output.append("Sales Tax").append('\t').append(totSalesTx);
-
-        output.append("Total Amount").append('\t').append(tot);
-        return output.toString();
+        outputReceipt.append( String.format("Sales Tax\t%sTotal Amount\t%s",totalSalesTax,totalAmount));
+        return outputReceipt.toString();
     }
 }

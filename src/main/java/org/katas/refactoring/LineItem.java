@@ -5,6 +5,7 @@ public class LineItem {
     private double price;
     private int quantity;
 
+
     public LineItem(String description, double price, int quantity) {
         super();
         this.description = description;
@@ -27,4 +28,10 @@ public class LineItem {
     double totalAmount() {
         return price * quantity;
     }
+
+    double getSalesTax(){
+        return totalAmount() * 0.10;
+    }
+
+
 }
